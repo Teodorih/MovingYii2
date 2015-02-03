@@ -58,15 +58,14 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest)
         {
             $ownSquare = $ownSquare->getOwnSquare(Yii::$app->user);
+            $arraySquares = Square::getAllSquares();
+
         }
         else
         {
-            $ownSquare->coord_x = 1;
-            $ownSquare->coord_y = 1;
+            $ownSquare = null;
         }
-
-
-        return $this->render('index',array('ownSquare'=>$ownSquare));
+        return $this->render('index',array('ownSquare'=>$ownSquare, 'arraySquares'=>$arraySquares));
     }
 
     public function actionLogin()

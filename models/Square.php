@@ -13,11 +13,17 @@ use yii\web\IdentityInterface;
 
  */
 
-class Square extends ActiveRecord {
+class Square extends ActiveRecord
+{
 
     public function getOwnSquare($currentUser)
     {
-      return $this ->findByIdentity($currentUser -> id);
+        return $this->findByIdentity($currentUser->id);
+    }
+
+    public static function getAllSquares()
+    {
+        return Square::findBySql('SELECT * FROM square')->all();
     }
 
     public static function findByIdentity($id)
