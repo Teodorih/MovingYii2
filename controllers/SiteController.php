@@ -13,6 +13,8 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\View;
+use yii\web\YiiAsset;
 
 class SiteController extends Controller
 {
@@ -59,11 +61,14 @@ class SiteController extends Controller
         {
             $ownSquare = $ownSquare->getOwnSquare(Yii::$app->user);
             $arraySquares = Square::getAllSquares();
+            $this->view->registerJs("user_id=".json_encode(Yii::$app->user->id),View::POS_END, 'own_id');
 
         }
         else
         {
             $ownSquare = null;
+            $arraySquares = null;
+
         }
         return $this->render('index',array('ownSquare'=>$ownSquare, 'arraySquares'=>$arraySquares));
     }
@@ -125,4 +130,10 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionBase()
+    {
+        $square = Square::LoadNewOwnSquare();
+        $square->SaveSquareInDB();
+    }
+
 }
