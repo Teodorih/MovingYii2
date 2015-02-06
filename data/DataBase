@@ -1,0 +1,31 @@
+CREATE TABLE `migration` (
+	`version` VARCHAR(180) NOT NULL COLLATE 'utf8_bin',
+	`apply_time` INT(11) NULL DEFAULT NULL,
+	PRIMARY KEY (`version`)
+)
+COLLATE='utf8_bin'
+ENGINE=InnoDB;
+
+CREATE TABLE `square` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`user_id` INT(11) NOT NULL,
+	`coord_x` INT(11) NOT NULL,
+	`coord_y` INT(11) NOT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `FK_coordinates_user` (`user_id`),
+	CONSTRAINT `FK_coordinates_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+)
+COLLATE='utf8_bin'
+ENGINE=InnoDB
+AUTO_INCREMENT=4;
+
+CREATE TABLE `user` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`username` VARCHAR(255) NOT NULL COLLATE 'utf8_unicode_ci',
+	`created_at` DATETIME NOT NULL,
+	`updated_at` DATETIME NOT NULL,
+	PRIMARY KEY (`id`)
+)
+COLLATE='utf8_unicode_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=6;
