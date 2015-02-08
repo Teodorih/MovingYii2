@@ -121,6 +121,8 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
+                    $NewOwnSquare = new Square();
+                    $NewOwnSquare->InsertSquareInDB();
                     return $this->goHome();
                 }
             }
@@ -130,10 +132,15 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-    public function actionBase()
+    public function actionDragbase()
     {
         $square = Square::LoadNewOwnSquare();
-        $square->SaveSquareInDB();
+        $square->UpdateSquareInDB();
+    }
+    public function actionIntervalbase()
+    {
+        $arraySquares = Square::getAllSquaresToString();
+        echo json_encode($arraySquares);
     }
 
 }

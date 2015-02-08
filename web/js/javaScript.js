@@ -26,13 +26,13 @@ function init() {
     )
 
     $(document).mouseup(call_server);
-    //setInterval('getCoords();', 3000);
+    setInterval('getCoords();', 3000);
 }
 
 function call_server(event, ui) {
 
     $.post(
-        "index.php?r=site/base",
+        "index.php?r=site/dragbase",
         {
             X: x,
             Y: y,
@@ -43,40 +43,39 @@ function call_server(event, ui) {
 
 }
 
-/*
+
 function getCoords() {
     $.ajax({
             type: 'POST',
-            url: "index.php",
-            data: {conf: true,
-                conf_ip: id,
+            url: "index.php?r=site/intervalbase",
+            data: {
+                // conf: true,
+                own_id: user_id,
                 moving: moving
             },
             success: function (data) {
                 //console.log(data);
                 coord_array = data;
                 var array = JSON.parse(coord_array);
-
-                console.log(array);
-                //console.log(data.length)
-                var y=0;
-                for (var i = 0; i < array.length; i++) {
-                    if(array[i].Name=="Mine")
-                    {
-                        document.getElementById("draggble").style.top = array[i].X;
-                        document.getElementById("draggble").style.left = array[i].Y;
-                    }else{
-                        if(document.getElementById("square" + y) == null)
+                if(moving == false){
+                    for (var i = 0; i < array.length; i++) {
+                        if(array[i].user_id== user_id)
                         {
-                            $('#sq').append('<div id="square' + y +'"></div>');
-                            document.getElementById("square" + y).style.position ="inherit";
-                            document.getElementById("square" + y).style.backgroundColor ="black";
-                            document.getElementById("square" + y).style.width = 50;
-                            document.getElementById("square" + y).style.height = 50;
+                            document.getElementById("dragable").style.top = array[i].coord_x +"px";
+                            document.getElementById("dragable").style.left = array[i].coord_y+"px";
+
+                        }else{
+                            if(document.getElementById("square" + array[i].user_id) == null)
+                            {
+                                $('#sq').append('<div id="square' + array[i].user_id +'"></div>');
+                                document.getElementById("square" + array[i].user_id).style.position ="inherit";
+                                document.getElementById("square" + array[i].user_id).style.backgroundColor ="black";
+                                document.getElementById("square" + array[i].user_id).style.width = 50;
+                                document.getElementById("square" + array[i].user_id).style.height = 50;
+                            }
+                            document.getElementById("square" + array[i].user_id).style.top = array[i].coord_x+"px";
+                            document.getElementById("square" + array[i].user_id).style.left = array[i].coord_y+"px";
                         }
-                        document.getElementById("square" + y).style.top = array[i].X;
-                        document.getElementById("square" + y).style.left = array[i].Y;
-                        y++;
                     }
                 }
 
@@ -89,4 +88,4 @@ function getCoords() {
         }
     )
 
-}*/
+}
