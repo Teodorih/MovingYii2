@@ -4,6 +4,8 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\helpers\Url;
+
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -26,8 +28,10 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
     <div class="wrap">
         <?php
+        $activateItems = true;
         NavBar::begin([
-            'brandLabel' => 'My Company',
+
+            'brandLabel' => 'Try to move it',//.Html::img('icons/logo.png',['id'=>'logo']), // уточнить
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar-inverse navbar-fixed-top',

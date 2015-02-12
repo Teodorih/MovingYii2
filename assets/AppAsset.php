@@ -21,7 +21,7 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
-        'js/javaScript.js',
+        'js/Site.js',
         'http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js',
         'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js',
     ];

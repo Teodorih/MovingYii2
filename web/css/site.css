@@ -11,6 +11,35 @@ body {
     margin-top:10px ;
     border: 10px;
 }
+#w0{ background-color: black;
+    background-color: #8481cc;
+
+    color:#ffffff;
+    -moz-text-decoration-color: #ffffff;
+}
+#logo{
+    position: inherit;
+    width: auto;
+    height: 120%;
+}
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus
+{
+    background-color: rgba(168, 173, 237, 0.44);
+    color: black;
+}
+.navbar-inverse .navbar-nav > li > a
+{
+    color: black;
+}
+
+.navbar-inverse .navbar-brand
+{
+    color:black;
+}
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus
+{
+    color:black;
+}
 
 #dragable{
     position:inherit;
