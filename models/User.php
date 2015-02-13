@@ -24,6 +24,12 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
+    public function relations()
+    {
+        return array(
+            'square'=>array(2, 'square', 'user_id'));
+    }
+
     public static function findIdentity($id)
     {
         return static::findOne(['id' => $id]);
@@ -60,6 +66,13 @@ class User extends ActiveRecord implements IdentityInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    public static function getAllFromUsersAndSquares()
+    {
+        return User::findBySql('SELECT * FROM user')->joinWith('square')->all();
+      // return User::find()->joinWith('square')->all();
+
     }
 
     /**

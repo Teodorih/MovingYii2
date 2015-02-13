@@ -24,6 +24,7 @@ function init() {
         }
 
     )
+    $('#navForHistory a:last').tab('show');
 
     $(document).mouseup(call_server);
     setInterval(getCoords, 3000);

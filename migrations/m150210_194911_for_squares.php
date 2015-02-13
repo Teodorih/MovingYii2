@@ -29,7 +29,9 @@ class m150210_194911_for_squares extends Migration
         $this->createIndex('FK_user_square', '{{%square}}', 'user_id');
         $this->addForeignKey(
             'FK_user_square', '{{%square}}', 'user_id', '{{%user}}', 'id', 'CASCADE'
-        ); 
+        );
+
+
         
     }
 

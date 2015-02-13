@@ -8,6 +8,7 @@ use app\models\LoginForm;;
 use app\models\SignupForm;
 use app\models\Square;
 use app\models\ContactForm;
+use app\models\User;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -141,6 +142,11 @@ class SiteController extends Controller
     {
         $arraySquares = Square::getAllSquaresToString();
         echo json_encode($arraySquares);
+    }
+    public function actionHistory()
+    {
+        $arrayUsers = User::getAllFromUsersAndSquares();
+        return $this->render('history',array('arrayUsers'=>$arrayUsers));
     }
 
 }

@@ -21,6 +21,11 @@ class Square extends ActiveRecord
         $this->coord_x = 0;
         $this->coord_y = 0;
     }
+    public function relations()
+    {
+        //return array(
+         //   'user_id'=>array(self::BELONGS_TO, 'user', 'id'));
+    }
 
     public function getOwnSquare($currentUser)
     {
