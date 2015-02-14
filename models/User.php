@@ -70,8 +70,9 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function getAllFromUsersAndSquares()
     {
-        return User::findBySql('SELECT * FROM user')->joinWith('square')->all();
+        //return User::findBySql('SELECT * FROM user')->joinWith('square')->all();
       // return User::find()->joinWith('square')->all();
+
 
     }
 

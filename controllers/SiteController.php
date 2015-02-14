@@ -123,7 +123,7 @@ class SiteController extends Controller
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
                     $NewOwnSquare = new Square();
-                    $NewOwnSquare->InsertSquareInDB();
+                    $NewOwnSquare->save();
                     return $this->goHome();
                 }
             }
@@ -135,8 +135,9 @@ class SiteController extends Controller
     }
     public function actionDragbase()
     {
-        $square = Square::LoadNewOwnSquare();
-        $square->UpdateSquareInDB();
+        $square = Square::findByIdentity($_POST['ip']);
+        $square->changeOwnSquare();
+        $square->save();
     }
     public function actionIntervalbase()
     {

@@ -46,26 +46,13 @@ class Square extends ActiveRecord
     {
         return static::findOne(['user_id' => $id]);
     }
-    public static function LoadNewOwnSquare()
+    public function changeOwnSquare()
     {
-        $newOwnSquare = new Square();
-        $newOwnSquare->user_id = $_POST['ip'];
-        $newOwnSquare->coord_x = $_POST['X'];
-        $newOwnSquare->coord_y = $_POST['Y'];
-        return $newOwnSquare;
+        $this->coord_x = $_POST['X'];
+        $this->coord_y = $_POST['Y'];
+        return $this;
     }
-    public function InsertSquareInDB()
-    {
-        Yii::$app->db->createCommand()->insert('square',['coord_x' => $this->coord_x, 'coord_y' => $this->coord_y, 'user_id' => $this->user_id])->execute();
-
-    }
-    public function UpdateSquareInDB()
-    {
-        if(Yii::$app->request->isPost) {
-            Yii::$app->db->createCommand()->update('square', ['coord_x' => $this->coord_x, 'coord_y' => $this->coord_y], 'user_id =' . $this->user_id)->execute();
-        }
-    }
-    public static function CreateDefaultSquare()
+    public static function createDefaultSquare()
     {
         $newSquare = new Square();
         $newSquare->user_id = Yii::$app->user->id;
