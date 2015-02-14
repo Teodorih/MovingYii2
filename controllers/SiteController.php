@@ -135,9 +135,12 @@ class SiteController extends Controller
     }
     public function actionDragbase()
     {
-        $square = Square::findByIdentity($_POST['ip']);
-        $square->changeOwnSquare();
-        $square->save();
+        if(Yii::$app->request->isPost)
+        {
+            $square = Square::findByIdentity($_POST['ip']);
+            $square->changeOwnSquare();
+            $square->save();
+        }
     }
     public function actionIntervalbase()
     {

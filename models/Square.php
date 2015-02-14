@@ -26,6 +26,10 @@ class Square extends ActiveRecord
         //return array(
          //   'user_id'=>array(self::BELONGS_TO, 'user', 'id'));
     }
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
 
     public function getOwnSquare($currentUser)
     {
