@@ -24,7 +24,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-    public  function getSquares()
+    public  function getSquare()
     {
         return $this->hasMany(Square::className(), ['user_id' => 'id']);
     }
@@ -70,11 +70,13 @@ class User extends ActiveRecord implements IdentityInterface
     public static function getAllFromUsersAndSquares()
     {
         //return User::findBySql('SELECT * FROM user')->joinWith('square')->all();
-      // return User::find()->joinWith('square')->all();
+        //return User::find()->joinWith('square')->all();
         //$orders = Order::find()->innerJoinWith('books')->all();
-        $customer = User::findBySql('SELECT * FROM user')->all();
-        $orders = $customer->squares;
-        return null;
+        //$customer = User::findOne(4);
+        //$orders = $customer->square;
+        //$orders2 = User::find()->joinWith('square')->all();
+        return User::find()->joinWith('square')->all();
+
 
 
     }
