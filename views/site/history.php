@@ -46,7 +46,7 @@ use Yii;
             $AutoincrementIndex++;
             ?>
             <tbody>
-  
+
             <tr>
 
               <td><?php echo $AutoincrementIndex?></td>

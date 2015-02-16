@@ -56,6 +56,15 @@ class Square extends ActiveRecord
         $this->coord_y = $_POST['Y'];
         return $this;
     }
+    public function saveInHistoryTable()
+    {
+        Yii::$app->db->createCommand()->insert('moving_history',[
+            'user_id' => $this->user_id,
+            'coord_x' => $this->coord_x,
+            'coord_y' => $this->coord_y,
+    ])->execute();
+
+    }
     public static function createDefaultSquare()
     {
         $newSquare = new Square();

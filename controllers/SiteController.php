@@ -140,6 +140,8 @@ class SiteController extends Controller
             $square = Square::findByIdentity($_POST['ip']);
             $square->changeOwnSquare();
             $square->save();
+            $square->saveInHistoryTable();
+
         }
     }
     public function actionIntervalbase()
@@ -150,16 +152,6 @@ class SiteController extends Controller
     public function actionHistory()
     {
         $arrayUsers = User::getAllFromUsersAndSquares();
-        foreach($arrayUsers as $user)
-        {
-            $a = $user;
-            $b = $user->square;
-            $d = $user->username;
-            //$c=$b->coord_x;
-
-
-            //$c = $b-> coord_x;
-        }
         return $this->render('history',array('arrayUsers'=>$arrayUsers));
     }
 
