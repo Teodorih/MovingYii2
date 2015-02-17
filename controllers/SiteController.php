@@ -137,7 +137,7 @@ class SiteController extends Controller
     {
         if(Yii::$app->request->isPost)
         {
-            $square = Square::findByIdentity($_POST['ip']);
+            $square = Square::findByIdentity($_POST['own_id']);
             $square->changeOwnSquare();
             $square->save();
             $square->saveInHistoryTable();
