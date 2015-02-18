@@ -22,8 +22,6 @@ AUTO_INCREMENT=4;
 CREATE TABLE `user` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`username` VARCHAR(255) NOT NULL COLLATE 'utf8_unicode_ci',
-	`created_at` DATETIME NOT NULL,
-	`updated_at` DATETIME NOT NULL,
 	PRIMARY KEY (`id`)
 )
 COLLATE='utf8_unicode_ci'

@@ -32,10 +32,17 @@ if (!Yii::$app->user->isGuest) {
                     <?php
                 }
             }
+            foreach($arraySquares as $square)
+            {
+                if($square->user_id == Yii::$app->user->id)
+                {
+                    ?> <div id="dragable" style="  top: <?php echo $square->coord_x ?>px;
+                    left:<?php echo $square->coord_y ?>px;">
+                </div> <?php
+                }
+            }
             ?>
-            <div id="dragable" style="  top: <?php echo $ownSquare->coord_x ?>px;
-                left:<?php echo $ownSquare->coord_y ?>px;">
-            </div>
+
 
         </div>
     </div>

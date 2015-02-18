@@ -60,14 +60,12 @@ class SiteController extends Controller
         $ownSquare = new Square();
         if (!Yii::$app->user->isGuest)
         {
-            $ownSquare = $ownSquare->getOwnSquare(Yii::$app->user);
-            $arraySquares = Square::getAllSquares();
+            $arraySquares = Square::getAllCurrentSquares();
             $this->view->registerJs("user_id=".json_encode(Yii::$app->user->id),View::POS_END, 'own_id');
 
         }
         else
         {
-            $ownSquare = null;
             $arraySquares = null;
 
         }
@@ -122,8 +120,8 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
-                    $NewOwnSquare = new Square();
-                    $NewOwnSquare->save();
+                    $newOwnSquare = new Square();
+                    $newOwnSquare->save();
                     return $this->goHome();
                 }
             }
@@ -137,16 +135,16 @@ class SiteController extends Controller
     {
         if(Yii::$app->request->isPost)
         {
-            $square = Square::findByIdentity($_POST['own_id']);
-            $square->changeOwnSquare();
+            $square = new Square();
+            $square->addCurrentCoordsToSquare();
             $square->save();
-            $square->saveInHistoryTable();
 
         }
     }
     public function actionIntervalbase()
     {
-        $arraySquares = Square::getAllSquaresToString();
+        $arraySquares = Square::getAllCurrentSquaresToString();
+
         echo json_encode($arraySquares);
     }
     public function actionHistory()

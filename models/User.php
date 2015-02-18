@@ -69,16 +69,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function getAllFromUsersAndSquares()
     {
-        //return User::findBySql('SELECT * FROM user')->joinWith('square')->all();
-        //return User::find()->joinWith('square')->all();
-        //$orders = Order::find()->innerJoinWith('books')->all();
-        //$customer = User::findOne(4);
-        //$orders = $customer->square;
-        //$orders2 = User::find()->joinWith('square')->all();
         return User::find()->joinWith('square')->all();
-
-
-
     }
 
     /**

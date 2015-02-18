@@ -20,12 +20,12 @@ function init() {
     });
     //$('#navForHistory a:last').tab('show');
 
-    $(document).mouseup(getOwnCoordsAfterDrag);
+    $("#sq").mouseup(sendOwnCoordsAfterDrag);
 
     setInterval(getCoords, 3000);
 }
 
-function getOwnCoordsAfterDrag(event, ui) {
+function sendOwnCoordsAfterDrag(event, ui) {
 
     $.post(
         "index.php?r=site/dragbase",
@@ -53,22 +53,22 @@ function getCoords() {
                     for (var i = 0; i < arraySquares.length; i++) {
                         if(arraySquares[i].user_id== user_id)
                         {
-                            var OwnSquare = document.getElementById("dragable");
-                            OwnSquare.style.top = arraySquares[i].coord_x +"px";
-                            OwnSquare.style.left = arraySquares[i].coord_y+"px";
+                            var ownSquare = document.getElementById("dragable");
+                            ownSquare.style.top = arraySquares[i].coord_x +"px";
+                            ownSquare.style.left = arraySquares[i].coord_y+"px";
 
                         }else{
-                            var UserSquare = document.getElementById("square" + arraySquares[i].user_id);
-                            if(UserSquare == null)
+                            var userSquare = document.getElementById("square" + arraySquares[i].user_id);
+                            if(userSquare == null)
                             {
                                 $('#sq').append('<div id="square' + arraySquares[i].user_id +'"></div>');
-                                UserSquare.style.position ="inherit";
-                                UserSquare.style.backgroundColor ="black";
-                                UserSquare.style.width = 50;
-                                UserSquare.style.height = 50;
+                                userSquare.style.position ="inherit";
+                                userSquare.style.backgroundColor ="black";
+                                userSquare.style.width = 50;
+                                userSquare.style.height = 50;
                             }
-                            UserSquare.style.top = arraySquares[i].coord_x+"px";
-                            UserSquare.style.left = arraySquares[i].coord_y+"px";
+                            userSquare.style.top = arraySquares[i].coord_x+"px";
+                            userSquare.style.left = arraySquares[i].coord_y+"px";
                         }
                     }
                 }

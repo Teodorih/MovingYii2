@@ -15,25 +15,25 @@ use yii\web\IdentityInterface;
 
 class Square extends ActiveRecord
 {
+    public static $quary = "SELECT t1.* FROM square t1
+  JOIN (SELECT user_id, MAX(id) id FROM square GROUP BY user_id) t2
+    ON t1.id = t2.id AND t1.user_id = t2.user_id;";
+
     public function __construct()
     {
         $this->user_id = Yii::$app->user->id;
         $this->coord_x = 0;
         $this->coord_y = 0;
     }
-    public function relations()
-    {
-        //return array(
-         //   'user_id'=>array(self::BELONGS_TO, 'user', 'id'));
-    }
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
-    public function getOwnSquare($currentUser)
+    public function getOwnSquare()
     {
-        return $this->findByIdentity($currentUser->id);
+        return Square::findBySql(Square::$quary)->where(['user_id'=>Yii::$app->user->id])->one();
+        //не работает
     }
 
     public static function getAllSquares()
@@ -45,12 +45,22 @@ class Square extends ActiveRecord
     {
         return Square::findBySql('SELECT * FROM square')->asArray()->all();
     }
+    public static function getAllCurrentSquaresToString()
+    {
+
+        return Square::findBySql(Square::$quary)->asArray()->all();
+    }
+    public static function getAllCurrentSquares()
+    {
+
+        return Square::findBySql(Square::$quary)->all();
+    }
 
     public static function findByIdentity($id)
     {
         return static::findOne(['user_id' => $id]);
     }
-    public function changeOwnSquare()
+    public function addCurrentCoordsToSquare()
     {
         $this->coord_x = $_POST['X'];
         $this->coord_y = $_POST['Y'];
