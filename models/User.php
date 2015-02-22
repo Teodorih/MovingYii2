@@ -67,11 +67,6 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->id;
     }
 
-    public static function getAllFromUsersAndSquares()
-    {
-        return User::find()->joinWith('square')->all();
-    }
-
     /**
      * @inheritdoc
      */

@@ -136,8 +136,11 @@ class SiteController extends Controller
         if(Yii::$app->request->isPost)
         {
             $square = new Square();
-            $square->addCurrentCoordsToSquare();
-            $square->save();
+            $square->setAttributes($_POST['square'], false);
+            if(!$square->save())
+            {
+                echo $square->getErrors();
+            }
 
         }
     }
@@ -149,7 +152,8 @@ class SiteController extends Controller
     }
     public function actionHistory()
     {
-        $arrayUsers = User::getAllFromUsersAndSquares();
+        //$arrayUsers = User::getAllFromUsersAndSquares();
+        $arrayUsers = User::find()->joinWith('square')->all();
         return $this->render('history',array('arrayUsers'=>$arrayUsers));
     }
 

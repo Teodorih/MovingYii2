@@ -1,6 +1,6 @@
 $(document).ready(init);
 
-var x, y;
+var x, y, square;
 var coord_array = [];
 var moving;
 
@@ -26,14 +26,15 @@ function init() {
 }
 
 function sendOwnCoordsAfterDrag(event, ui) {
+    square={user_id:user_id, coord_x:x, coord_y:y};
 
     $.post(
         "index.php?r=site/dragbase",
         {
             X: x,
             Y: y,
-            own_id: user_id
-
+            own_id: user_id,
+            square: square
         })
 
 }

@@ -15,7 +15,7 @@ use yii\web\IdentityInterface;
 
 class Square extends ActiveRecord
 {
-    public static $quary = "SELECT t1.* FROM square t1
+    public static $query = "SELECT t1.* FROM square t1
   JOIN (SELECT user_id, MAX(id) id FROM square GROUP BY user_id) t2
     ON t1.id = t2.id AND t1.user_id = t2.user_id;";
 
@@ -32,28 +32,18 @@ class Square extends ActiveRecord
 
     public function getOwnSquare()
     {
-        return Square::findBySql(Square::$quary)->where(['user_id'=>Yii::$app->user->id])->one();
+        return Square::findBySql(Square::$query)->where(['user_id'=>Yii::$app->user->id])->one();
         //не работает
-    }
-
-    public static function getAllSquares()
-    {
-        return Square::findBySql('SELECT * FROM square')->all();
-    }
-
-    public static function getAllSquaresToString()
-    {
-        return Square::findBySql('SELECT * FROM square')->asArray()->all();
     }
     public static function getAllCurrentSquaresToString()
     {
 
-        return Square::findBySql(Square::$quary)->asArray()->all();
+        return Square::findBySql(Square::$query)->asArray()->all();
     }
     public static function getAllCurrentSquares()
     {
 
-        return Square::findBySql(Square::$quary)->all();
+        return Square::findBySql(Square::$query)->all();
     }
 
     public static function findByIdentity($id)
