@@ -1,8 +1,10 @@
 $(document).ready(init);
+$('body').on('start_interval', function(){setInterval(getCoords, 3000);});
 
 var x, y, square;
 var coord_array = [];
 var moving;
+var user_id = null;
 
 function init() {
     $( "#dragable" ).draggable({
@@ -21,8 +23,8 @@ function init() {
     //$('#navForHistory a:last').tab('show');
 
     $("#sq").mouseup(sendOwnCoordsAfterDrag);
-
-    setInterval(getCoords, 3000);
+    //var IntervalId = setInterval(getCoords, 3000);
+    //clearInterval();
 }
 
 function sendOwnCoordsAfterDrag(event, ui) {
@@ -31,9 +33,6 @@ function sendOwnCoordsAfterDrag(event, ui) {
     $.post(
         "index.php?r=site/dragbase",
         {
-            X: x,
-            Y: y,
-            own_id: user_id,
             square: square
         })
 

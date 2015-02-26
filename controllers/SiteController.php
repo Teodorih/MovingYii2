@@ -61,6 +61,7 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest)
         {
             $arraySquares = Square::getAllCurrentSquares();
+            $this->view->registerJs("$('body').trigger('start_interval');",View::EVENT_BEGIN_BODY, 'interval');
             $this->view->registerJs("user_id=".json_encode(Yii::$app->user->id),View::POS_END, 'own_id');
 
         }
@@ -69,12 +70,12 @@ class SiteController extends Controller
             $arraySquares = null;
 
         }
-        return $this->render('index',array('ownSquare'=>$ownSquare, 'arraySquares'=>$arraySquares));
+        return $this->render('index',array('arraySquares'=>$arraySquares));
     }
 
     public function actionLogin()
     {
-        if (!\Yii::$app->user->isGuest) {
+        if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
@@ -91,27 +92,8 @@ class SiteController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
+        $this->view->registerJs("user_id=null",View::POS_END, 'own_id');
         return $this->goHome();
-    }
-
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    public function actionAbout()
-    {
-        return $this->render('about');
     }
 
     public function actionSignup()
@@ -147,8 +129,9 @@ class SiteController extends Controller
     public function actionIntervalbase()
     {
         $arraySquares = Square::getAllCurrentSquaresToString();
-
-        echo json_encode($arraySquares);
+        if(!Yii::$app->user->isGuest) {
+            echo json_encode($arraySquares);
+        }
     }
     public function actionHistory()
     {
