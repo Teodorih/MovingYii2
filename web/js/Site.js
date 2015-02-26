@@ -1,5 +1,5 @@
 $(document).ready(init);
-$("#foo").on("app.start.interval.please", function(){setInterval(getCoords, 3000);});
+//$("#foo").on("app.start.interval.please", function(){setInterval(getCoords, 3000);});
 
 var x, y, square;
 var coord_array = [];
@@ -7,6 +7,9 @@ var moving;
 var user_id = null;
 
 function init() {
+    $(document).on('app.start.interval', function(){
+        setInterval(getCoords, 3000);
+    });
     $( "#dragable" ).draggable({
         containment: "parent",
         drag: function(event, ui) {

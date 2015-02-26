@@ -11,9 +11,6 @@ $this->title = 'My Yii Application';
 <?php
 if (!Yii::$app->user->isGuest) {
     ?>
-
-        <script>$("#foo").trigger("app.start.interval.please");</script>
-
     <div id="site-index">
         <div id="sq">
 

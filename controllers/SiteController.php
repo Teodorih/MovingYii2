@@ -60,8 +60,11 @@ class SiteController extends Controller
         $ownSquare = new Square();
         if (!Yii::$app->user->isGuest)
         {
-            $arraySquares = Square::getAllCurrentSquares();
-            //$this->view->registerJs("$('body').trigger('start_interval');",View::EVENT_BEGIN_BODY, 'interval');
+            $arraySquares = Square::getCurrentSquares()->all();
+            $triggerName = "app.start.interval";
+            $this->view->registerJs("$(document).ready(function(){
+                $(document).trigger('$triggerName');
+                });" ,View::POS_HEAD, 'interval');
             $this->view->registerJs("user_id=".json_encode(Yii::$app->user->id),View::POS_END, 'own_id');
 
         }
@@ -117,7 +120,7 @@ class SiteController extends Controller
     {
         if(Yii::$app->request->isPost)
         {
-            $square = new Square();
+            $square = new Square(Yii::$app->user->id,0,0);
             $square->setAttributes($_POST['square'], false);
             if(!$square->save())
             {
@@ -128,14 +131,13 @@ class SiteController extends Controller
     }
     public function actionIntervalbase()
     {
-        $arraySquares = Square::getAllCurrentSquaresToString();
+        $arraySquares = Square::getCurrentSquares()->asArray()->all();
         if(!Yii::$app->user->isGuest) {
             echo json_encode($arraySquares);
         }
     }
     public function actionHistory()
     {
-        //$arrayUsers = User::getAllFromUsersAndSquares();
         $arrayUsers = User::find()->joinWith('square')->all();
         return $this->render('history',array('arrayUsers'=>$arrayUsers));
     }

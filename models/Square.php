@@ -19,31 +19,35 @@ class Square extends ActiveRecord
   JOIN (SELECT user_id, MAX(id) id FROM square GROUP BY user_id) t2
     ON t1.id = t2.id AND t1.user_id = t2.user_id;";
 
-    public function __construct()
+  /*  public function __construct()
     {
         $this->user_id = Yii::$app->user->id;
         $this->coord_x = 0;
         $this->coord_y = 0;
+    }*/
+    //public function __construct($config=['user_id'=>, 'coord_x'=>0,'coord_y'=>0])
+    //{
+        // ... initialization before configuration is applied
+
+        //parent::__construct($config);
+    //}
+    public function init()
+    {
+        parent::init();
+
+        // ... initialization after configuration is applied
     }
+
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
-
-    public function getOwnSquare()
+    public static function getCurrentSquares()
     {
-        return Square::findBySql(Square::$query)->where(['user_id'=>Yii::$app->user->id])->one();
-        //не работает
-    }
-    public static function getAllCurrentSquaresToString()
-    {
-
-        return Square::findBySql(Square::$query)->asArray()->all();
-    }
-    public static function getAllCurrentSquares()
-    {
-
-        return Square::findBySql(Square::$query)->all();
+        $query = "SELECT t1.* FROM square t1
+  JOIN (SELECT user_id, MAX(id) id FROM square GROUP BY user_id) t2
+    ON t1.id = t2.id AND t1.user_id = t2.user_id;";
+        return Square::findBySql($query);
     }
 
     public static function findByIdentity($id)
