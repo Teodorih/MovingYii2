@@ -61,7 +61,7 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest)
         {
             $arraySquares = Square::getAllCurrentSquares();
-            $this->view->registerJs("$('body').trigger('start_interval');",View::EVENT_BEGIN_BODY, 'interval');
+            //$this->view->registerJs("$('body').trigger('start_interval');",View::EVENT_BEGIN_BODY, 'interval');
             $this->view->registerJs("user_id=".json_encode(Yii::$app->user->id),View::POS_END, 'own_id');
 
         }

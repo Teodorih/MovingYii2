@@ -1,5 +1,5 @@
 $(document).ready(init);
-$('body').on('start_interval', function(){setInterval(getCoords, 3000);});
+$("#foo").on("app.start.interval.please", function(){setInterval(getCoords, 3000);});
 
 var x, y, square;
 var coord_array = [];
