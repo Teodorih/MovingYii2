@@ -54,10 +54,13 @@ class SiteController extends Controller
             ],
         ];
     }
+    public function beforeAction($action) {
+        $this->enableCsrfValidation = ($action->id !== "logout" && $action->id !== "dragbase" && $action->id !== "intervalbase");
+        return parent::beforeAction($action);
+    }
 
     public function actionIndex()
     {
-        $ownSquare = new Square();
         if (!Yii::$app->user->isGuest)
         {
             $arraySquares = Square::getCurrentSquares()->all();
@@ -105,7 +108,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
-                    $newOwnSquare = new Square();
+                    $newOwnSquare= new Square(['user_id'=>yii::$app->user->id,'coord_x'=>0,'coord_y'=>0]);
                     $newOwnSquare->save();
                     return $this->goHome();
                 }
@@ -120,7 +123,7 @@ class SiteController extends Controller
     {
         if(Yii::$app->request->isPost)
         {
-            $square = new Square(Yii::$app->user->id,0,0);
+            $square = new Square();
             $square->setAttributes($_POST['square'], false);
             if(!$square->save())
             {

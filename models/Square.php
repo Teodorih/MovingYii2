@@ -15,28 +15,21 @@ use yii\web\IdentityInterface;
 
 class Square extends ActiveRecord
 {
-    public static $query = "SELECT t1.* FROM square t1
-  JOIN (SELECT user_id, MAX(id) id FROM square GROUP BY user_id) t2
-    ON t1.id = t2.id AND t1.user_id = t2.user_id;";
 
-  /*  public function __construct()
+    public function __construct($config = [])
     {
-        $this->user_id = Yii::$app->user->id;
-        $this->coord_x = 0;
-        $this->coord_y = 0;
-    }*/
-    //public function __construct($config=['user_id'=>, 'coord_x'=>0,'coord_y'=>0])
-    //{
         // ... initialization before configuration is applied
 
-        //parent::__construct($config);
-    //}
+        parent::__construct($config);
+    }
+
     public function init()
     {
         parent::init();
 
         // ... initialization after configuration is applied
     }
+
 
     public function getUser()
     {

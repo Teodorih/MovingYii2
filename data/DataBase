@@ -8,9 +8,9 @@ ENGINE=InnoDB;
 
 CREATE TABLE `square` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`user_id` INT(11) NOT NULL,
-	`coord_x` INT(11) NOT NULL,
-	`coord_y` INT(11) NOT NULL,
+	`user_id` INT(11) NOT NULL DEFAULT 0,
+	`coord_x` INT(11) NOT NULL DEFAULT 0,
+	`coord_y` INT(11) NOT NULL DEFAULT 0,
 	PRIMARY KEY (`id`),
 	INDEX `FK_coordinates_user` (`user_id`),
 	CONSTRAINT `FK_coordinates_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
